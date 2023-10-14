@@ -4,74 +4,77 @@
 
 using namespace std;
 
-struct node {
+struct Node {
     int val;
     bool visited;
 };
 
-bool existRoute(vector<vector<node>> g, int start, int end){
-    vector<bool> v(g.size()); //tracks if a node has already been visited
-    queue<int> q;
-    
-    v[start] = true;
+Node* makeNode(int val){
+    Node* n = new Node();
+    n->val = val;
+    n->visited = false;
+    return n;
+}
+
+bool existRoute(vector<vector<Node*>> g, Node* start, Node* end){
+    queue<Node*> q;
+    start->visited = true;
     q.push(start);
-    int u;
     while (!q.empty()){
-        u = q.front();
+        Node* k = q.front();
         q.pop();
-        if (u == end)
+        if (k == end)
             return true;
         else{
-            for (int j = 0; j < g[u].size(); ++j){
-                int k = g[u][j].val;
-                if (v[k] == false){
-                    v[k] = true;
-                    q.push(k);
+            int l = k->val;
+            for (int i = 0; i < g[l].size(); ++i){
+                if (g[l][i]->visited == false){
+                    g[l][i]->visited = true;
+                    q.push(g[l][i]);
                 }
             }
         }
     }
-    
     return false;
-    
-}
-
-node makeNode(int val){
-    node a;
-    a.val = val;
-    a.visited = false;
-    return a;
 }
 
 int main()
 {
-    vector<vector<node>> g;
+    vector<vector<Node*>> g;
     for (int i = 0; i < 6; ++i){
-        vector<node> f;
-        g.push_back(f);
+        vector<Node*> n;
+        g.push_back(n);
     }
+
+    Node* a = makeNode(0);
+    Node* b = makeNode(1);
+    Node* c = makeNode(2);
+    Node* d = makeNode(3);
+    Node* e = makeNode(4);
+    Node* f = makeNode(5);
     
-    g[0].push_back(makeNode(5));
-    g[0].push_back(makeNode(4));
-    g[0].push_back(makeNode(1));
-    g[1].push_back(makeNode(4));
-    g[1].push_back(makeNode(3));
-    g[2].push_back(makeNode(1));
-    g[3].push_back(makeNode(2));
-    g[3].push_back(makeNode(4));
+    g[0].push_back(f);
+    g[0].push_back(e);
+    g[0].push_back(b);
+    g[1].push_back(e);
+    g[1].push_back(d);
+    g[2].push_back(b);
+    g[3].push_back(c);
+    g[3].push_back(e);
     
     for (int i = 0; i < g.size(); ++i){
         cout << i << ": ";
         for (int j = 0; j < g[i].size(); ++j){
-            cout << g[i][j].val << " ";
+            cout << g[i][j]->val << " ";
         }
         cout << endl;
     }
-
-    if (existRoute(g, 1, 2))
-        cout << "There exists a route" << endl;
+    
+    if (existRoute(g, b, c)){
+        cout << "There exists a route";
+    }
     else
-        cout << "No route" << endl;
-
+        cout << "There does not exist a route";
+    
     return 0;
 }
