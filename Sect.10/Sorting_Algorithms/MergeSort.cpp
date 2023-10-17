@@ -44,8 +44,6 @@ void mergesort(vector<int>& array){
     mergesort(array, helper, 0, array.size()-1);
 }
 
-
-
 int main()
 {
     vector<int> a = {5, 3, 4, 2, 1, 6, 7};
