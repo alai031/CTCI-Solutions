@@ -1,10 +1,9 @@
 #include <iostream>
-#include <algorithm>
-#include <array>
+#include <vector>
 
 using namespace std;
 
-int partition(int arr[], int left, int right){
+int partition(vector<int>& arr, int left, int right){
     int pivot = arr[(left + right) / 2];
     while (left <= right) {
         while (arr[left] < pivot)
@@ -20,7 +19,7 @@ int partition(int arr[], int left, int right){
     return left;
 }
 
-void quickSort(int arr[], int left, int right){
+void quickSort(vector<int>& arr, int left, int right){
     int index = partition(arr, left, right);
     if (left < index - 1)
         quickSort(arr, left, index - 1);
@@ -31,9 +30,9 @@ void quickSort(int arr[], int left, int right){
 
 int main()
 {
-    int arr[] = {3, 5, 6, 7, 2, 9, 4};
-    quickSort(arr, 0, sizeof(arr) / sizeof(int) - 1);
-    for (int i = 0; i < sizeof(arr)/sizeof(arr[0]); ++i){
+    vector<int> arr = {2, 1, 6, 4, 5};
+    quickSort(arr, 0, arr.size()-1);
+    for (int i = 0; i < arr.size(); ++i){
         cout << arr[i] << endl;
     }
 

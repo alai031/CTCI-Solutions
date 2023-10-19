@@ -46,7 +46,7 @@ void mergesort(vector<int>& array){
 
 int main()
 {
-    vector<int> a = {5, 3, 4, 2, 1, 6, 7};
+    vector<int> a = {5, 2, 3, 4, 1};
     mergesort(a);
     for (int i = 0; i < a.size(); ++i){
         cout << a[i] << endl;
